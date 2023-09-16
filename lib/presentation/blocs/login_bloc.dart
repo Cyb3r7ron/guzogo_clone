@@ -31,7 +31,7 @@ class LoginInitial extends LoginState {}
 class LoginLoading extends LoginState {}
 
 class LoginSuccess extends LoginState {
-  final User user; // You need to define a User class
+  final User user; // User class yet to be defined
 
   LoginSuccess({required this.user});
 

@@ -72,17 +72,14 @@ class SignupPage extends StatelessWidget {
               ),
             ),
 
-// Add space between the password field and the button
             const SizedBox(height: 16.0),
 
 // "REGISTER" button
             SizedBox(
               width: double.infinity,
-              height: 50, // Adjust the height as needed
+              height: 50,
               child: ElevatedButton(
-                onPressed: () {
-                  // Handle signup logic here
-                },
+                onPressed: () {},
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
@@ -104,7 +101,6 @@ class SignupPage extends StatelessWidget {
             // "Already have an account? Sign in" link
             TextButton(
               onPressed: () {
-                // Navigate back to the login page using MaterialPageRoute
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const LoginPage()),

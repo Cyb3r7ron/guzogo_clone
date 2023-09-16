@@ -61,12 +61,12 @@ class LoginPage extends StatelessWidget {
                 obscureText: true,
               ),
             ),
-            // Add space between the password field and the button
+            
             const SizedBox(height: 16.0),
-            // Forgot password link on the left
+            
             TextButton(
               onPressed: () {
-                // Handle "Forgot Password" link here
+                // "Forgot Password" link here
               },
               child: const Text(
                 'Forgot Password',
@@ -76,13 +76,13 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
             ),
-            // Increase the height of the login button
+            
             SizedBox(
               width: double.infinity,
-              height: 50, // Adjust the height as needed
+              height: 50, 
               child: ElevatedButton(
                 onPressed: () {
-                  // Handle login logic here
+                  
                 },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(
@@ -105,7 +105,6 @@ class LoginPage extends StatelessWidget {
               padding: const EdgeInsets.only(top: 16.0),
               child: TextButton(
                 onPressed: () {
-                  // Navigate back to the login page using MaterialPageRoute
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const SignupPage()),
