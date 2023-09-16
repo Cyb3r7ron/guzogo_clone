@@ -31,7 +31,7 @@ class LoginPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Image.asset('assets/logo.png', width: 50, height: 50),
+            Image.asset('assets/logo.png', width: 100, height: 100),
             const Padding(
               padding: EdgeInsets.only(top: 16.0),
               child: Text(
@@ -61,9 +61,7 @@ class LoginPage extends StatelessWidget {
                 obscureText: true,
               ),
             ),
-            
             const SizedBox(height: 16.0),
-            
             TextButton(
               onPressed: () {
                 // "Forgot Password" link here
@@ -76,14 +74,11 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
             ),
-            
             SizedBox(
               width: double.infinity,
-              height: 50, 
+              height: 50,
               child: ElevatedButton(
-                onPressed: () {
-                  
-                },
+                onPressed: () {},
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guzogo_clone/presentation/pages/login_page.dart';
+import 'package:guzogo_clone/presentation/pages/otp_page.dart'; // Import the OTP page
 
 void main() {
   runApp(const MyApp());
@@ -60,7 +61,16 @@ class SignupPage extends StatelessWidget {
                 ),
               ),
             ),
-            // "Enter Password" field with added space
+            // Phone Number field
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Phone Number',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: TextFormField(
@@ -71,15 +81,21 @@ class SignupPage extends StatelessWidget {
                 obscureText: true,
               ),
             ),
-
+            // Add space between the password field and the button
             const SizedBox(height: 16.0),
-
-// "REGISTER" button
+            // "REGISTER" button
             SizedBox(
               width: double.infinity,
-              height: 50,
+              height: 50, // Adjust the height as needed
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Handle signup logic here
+                  // Redirect to OTP page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const OTPPage()),
+                  );
+                },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
@@ -97,17 +113,17 @@ class SignupPage extends StatelessWidget {
                 ),
               ),
             ),
-
             // "Already have an account? Sign in" link
             TextButton(
               onPressed: () {
+                // Navigate back to the login page using MaterialPageRoute
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const LoginPage()),
                 );
               },
               child: const Text(
-                'Already have an account? SignIn',
+                'Already have an account? Sign in',
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
