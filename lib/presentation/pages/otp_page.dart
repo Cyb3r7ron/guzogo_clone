@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guzogo_clone/presentation/pages/home_page.dart';
 
 class OTPPage extends StatelessWidget {
   const OTPPage({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class OTPPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Image.asset('assets/logo.png', width: 50, height: 50),
+            Image.asset('assets/logo.png', width: 130, height: 130),
             const Padding(
               padding: EdgeInsets.only(top: 16.0),
               child: Text(
@@ -82,7 +83,10 @@ class OTPPage extends StatelessWidget {
                 onPressed: () {
                   // Handle OTP validation and continue logic here
                   // For now, let's navigate to the homepage
-                  Navigator.pushNamed(context, '/home');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomePage()),
+                  );
                 },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(

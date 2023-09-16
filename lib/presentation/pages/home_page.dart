@@ -25,85 +25,106 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              icon: const Icon(Icons.notifications),
-              onPressed: () {
-                // Handle notifications
-              },
-            ),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height / 2,
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: Image.asset(
-                    'assets/background_image.jpg',
-                    fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height / 2,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/plane2.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Stack(
+                children: [
+                  Container(
+                    color: Color(0xFF01062B)
+                        .withOpacity(0.5), // Blue color overlay
                   ),
-                ),
-                Container(
-                  color:
-                      Colors.blue.withOpacity(0.5), // Adjust opacity as needed
-                ),
-                Center(
-                  child: Image.asset(
-                    'assets/logo.png',
-                    width: 100,
-                    height: 100,
+                  Center(
+                    child: Image.asset(
+                      'assets/guzo.png',
+                      width: 100,
+                      height: 100,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildRoundButton('Return'),
-              const SizedBox(width: 16),
-              _buildRoundButton('One Way'),
-            ],
-          ),
-          _buildSelectionRow('From', 'To'),
-          _buildSelectionRow('Departure date', 'Return date'),
-          _buildSelectionRow('Cabin class', 'Passengers'),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () {
-              // Handle search flights
-            },
-            style: ElevatedButton.styleFrom(
-              primary: Colors.yellow,
-              onPrimary: Colors.blue,
-              shape: const StadiumBorder(),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
-              child: Text(
-                'Search Flights',
-                style: TextStyle(fontSize: 16),
+                ],
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: Colors.white, // Bell icon background color
+                ),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.notifications,
+                    color: Colors.white, // Bell icon color
+                  ),
+                  onPressed: () {
+                    // Handle notifications
+                  },
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildRoundButton('Return'),
+                const SizedBox(width: 16),
+                _buildRoundButton('One Way'),
+              ],
+            ),
+            _buildSelectionRow('From', 'To'),
+            _buildSelectionRow('Departure date', 'Return date'),
+            _buildSelectionRow('Cabin class', 'Passengers'),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                // Handle search flights
+              },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Color(0xFF100DBE),
+                backgroundColor: Colors.yellow,
+                shape: const StadiumBorder(),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+                child: Text(
+                  'Search Flights',
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search,
+                color: Color(0xFF100DBE)), // Dark blue icon color
+            label: 'Search',
           ),
-          const Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildMenuButton(Icons.search, 'Search'),
-              _buildMenuButton(Icons.card_travel, 'Booking'),
-              _buildMenuButton(Icons.notifications, 'Notifications'),
-              _buildMenuButton(Icons.settings, 'Settings'),
-            ],
+          BottomNavigationBarItem(
+            icon: Icon(Icons.card_travel,
+                color: Color(0xFF100DBE)), // Dark blue icon color
+            label: 'Booking',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications,
+                color: Color(0xFF100DBE)), // Dark blue icon color
+            label: 'Notifications',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings,
+                color: Color(0xFF100DBE)), // Dark blue icon color
+            label: 'Settings',
           ),
         ],
       ),
@@ -116,9 +137,9 @@ class HomePage extends StatelessWidget {
         // Handle round button tap
       },
       style: ElevatedButton.styleFrom(
-        primary: Colors.blue,
-        onPrimary: Colors.white,
-        shape: const CircleBorder(),
+        foregroundColor: Colors.white,
+        backgroundColor: Color(0xFF100DBE),
+        shape: const StadiumBorder(),
       ),
       child: Text(text),
     );
@@ -130,7 +151,7 @@ class HomePage extends StatelessWidget {
         Expanded(
           child: ListTile(
             title: Text(leftText),
-            subtitle: const Text('Select'),
+            subtitle: Text('Select'),
             onTap: () {
               // Handle selection
             },
@@ -139,26 +160,12 @@ class HomePage extends StatelessWidget {
         Expanded(
           child: ListTile(
             title: Text(rightText),
-            subtitle: const Text('Select'),
+            subtitle: Text('Select'),
             onTap: () {
               // Handle selection
             },
           ),
         ),
-      ],
-    );
-  }
-
-  Widget _buildMenuButton(IconData icon, String text) {
-    return Column(
-      children: [
-        IconButton(
-          icon: Icon(icon),
-          onPressed: () {
-            // Handle menu button tap
-          },
-        ),
-        Text(text),
       ],
     );
   }

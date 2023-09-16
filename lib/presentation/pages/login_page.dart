@@ -31,7 +31,7 @@ class LoginPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Image.asset('assets/logo.png', width: 100, height: 100),
+            Image.asset('assets/logo.png', width: 130, height: 130),
             const Padding(
               padding: EdgeInsets.only(top: 16.0),
               child: Text(

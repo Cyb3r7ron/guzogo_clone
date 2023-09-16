@@ -32,7 +32,7 @@ class SignupPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Image.asset('assets/logo.png', width: 50, height: 50),
+            Image.asset('assets/logo.png', width: 130, height: 130),
             const Padding(
               padding: EdgeInsets.only(top: 16.0),
               child: Text(
