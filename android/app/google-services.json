@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "822679231912",
+    "firebase_url": "https://chat-app-cb713-default-rtdb.firebaseio.com",
+    "project_id": "chat-app-cb713",
+    "storage_bucket": "chat-app-cb713.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822679231912:android:6a36d0bf8c621d65b3519d",
+        "android_client_info": {
+          "package_name": "com.example.chat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822679231912-e7497nj1fr983l5j31ck7are4u5k80f6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTT2ujKjIZLkS8emiBJMpSfe1c8AuwtYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822679231912-e7497nj1fr983l5j31ck7are4u5k80f6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822679231912:android:fe4a9983a8467901b3519d",
+        "android_client_info": {
+          "package_name": "com.example.guzogo_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822679231912-e7497nj1fr983l5j31ck7are4u5k80f6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTT2ujKjIZLkS8emiBJMpSfe1c8AuwtYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822679231912-e7497nj1fr983l5j31ck7are4u5k80f6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

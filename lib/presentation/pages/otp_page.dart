@@ -1,8 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:guzogo_clone/presentation/pages/home_page.dart';
 
 class OTPPage extends StatelessWidget {
-  const OTPPage({Key? key}) : super(key: key);
+  final String phoneNumber;
+  final String verificationId; // Add verificationId
+  OTPPage({Key? key, required this.phoneNumber, required this.verificationId})
+      : super(key: key);
+
+  final TextEditingController _otpController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<void> _signInWithOTP(String otp, BuildContext context) async {
+    try {
+      AuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationId, // Use the verificationId
+        smsCode: otp,
+      );
+      UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
+
+      if (userCredential.user != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Sign in failed. Please try again.'),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Sign in failed. Please try again.'),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,27 +50,9 @@ class OTPPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Image.asset('assets/logo.png', width: 130, height: 130),
-            const Padding(
-              padding: EdgeInsets.only(top: 16.0),
-              child: Text(
-                'OTP',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 16.0),
-              child: Text(
-                'Insert OTP sent to your number',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-            ),
-            // OTP field with 6 digits
+            // Existing UI here
+
+            // OTP input field
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: Row(
@@ -48,45 +67,37 @@ class OTPPage extends StatelessWidget {
                 ],
               ),
             ),
+
             // Resend OTP text without underline and bold
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: TextButton(
                 onPressed: () {
-                  // Handle OTP resend logic here
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('OTP Resent'),
-                    ),
-                  );
+                  // Add your code to resend OTP here
                 },
                 style: ButtonStyle(
                   foregroundColor: MaterialStateProperty.all(Colors.black),
                   textStyle: MaterialStateProperty.all(
                     const TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.bold, // Make text bold
-                      decoration: TextDecoration.none, // Remove underline
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.none,
                     ),
                   ),
                 ),
                 child: const Text('Resend'),
               ),
             ),
+
             // Continue button
             const Spacer(),
             SizedBox(
               width: double.infinity,
-              height: 50, // Adjust the height as needed
+              height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  // Handle OTP validation and continue logic here
-                  // For now, let's navigate to the homepage
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
-                  );
+                  String otp = _otpController.text.trim();
+                  _signInWithOTP(otp, context);
                 },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(
@@ -121,6 +132,7 @@ class OTPPage extends StatelessWidget {
       ),
       alignment: Alignment.center,
       child: TextFormField(
+        controller: _otpController,
         textAlign: TextAlign.center,
         keyboardType: TextInputType.number,
         maxLength: 1,

@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
+                  shape: BoxShape.circle,
                   color: Colors.white, // Bell icon background color
                 ),
                 child: IconButton(
@@ -105,6 +105,7 @@ class HomePage extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: true, // Add this line to show labels
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.search,

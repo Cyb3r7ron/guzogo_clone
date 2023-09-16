@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:guzogo_clone/presentation/pages/signup_page.dart';
 
 void main() {
@@ -15,12 +16,35 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      home: const LoginPage(),
     );
   }
 }
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> _signIn() async {
+    try {
+      await _auth.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      // User is signed in, you can navigate to the homepage or do any other actions.
+    } catch (e) {
+      // Handle sign-in errors (e.g., invalid credentials)
+      print("Error: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +69,7 @@ class LoginPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: TextFormField(
+                controller: _emailController,
                 decoration: const InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(),
@@ -54,6 +79,7 @@ class LoginPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: TextFormField(
+                controller: _passwordController,
                 decoration: const InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(),
@@ -78,7 +104,7 @@ class LoginPage extends StatelessWidget {
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: _signIn,
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(

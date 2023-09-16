@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:guzogo_clone/presentation/pages/login_page.dart';
-import 'package:guzogo_clone/presentation/pages/otp_page.dart'; // Import the OTP page
+import 'package:guzogo_clone/presentation/pages/otp_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -16,12 +20,50 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      home: const SignupPage(),
     );
   }
 }
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
+
+  @override
+  _SignupPageState createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> _registerAndSendOTP() async {
+    try {
+      final UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+        email: _phoneNumberController
+            .text, // Using phone number as email for simplicity
+        password: _passwordController.text,
+      );
+
+      // Send OTP logic here
+      // After sending OTP, navigate to the OTP page
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OTPPage(
+            phoneNumber: _phoneNumberController.text,
+            verificationId: '',
+          ),
+        ),
+      );
+    } catch (e) {
+      // Handle registration errors (e.g., invalid input or user already exists)
+      print("Error: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +88,7 @@ class SignupPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: TextFormField(
+                controller: _firstNameController,
                 decoration: const InputDecoration(
                   labelText: 'First Name',
                   border: OutlineInputBorder(),
@@ -55,6 +98,7 @@ class SignupPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: TextFormField(
+                controller: _lastNameController,
                 decoration: const InputDecoration(
                   labelText: 'Last Name',
                   border: OutlineInputBorder(),
@@ -65,6 +109,7 @@ class SignupPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: TextFormField(
+                controller: _phoneNumberController,
                 decoration: const InputDecoration(
                   labelText: 'Phone Number',
                   border: OutlineInputBorder(),
@@ -74,6 +119,7 @@ class SignupPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: TextFormField(
+                controller: _passwordController,
                 decoration: const InputDecoration(
                   labelText: 'Enter Password',
                   border: OutlineInputBorder(),
@@ -88,14 +134,7 @@ class SignupPage extends StatelessWidget {
               width: double.infinity,
               height: 50, // Adjust the height as needed
               child: ElevatedButton(
-                onPressed: () {
-                  // Handle signup logic here
-                  // Redirect to OTP page
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const OTPPage()),
-                  );
-                },
+                onPressed: _registerAndSendOTP,
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
